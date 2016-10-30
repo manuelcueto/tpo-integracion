@@ -35,23 +35,27 @@ public class ArticuloService implements ArticuloServiceRemote {
 
 		Articulo articulo = ArticuloConverter.fromDto(dto);
 		entityManager.persist(articulo);
-
-		return null;
+		dto.setIdArticulo(articulo.getIdArticulo());
+		this.notificarCreacion(dto);
+		return dto;
 	}
 
 	@Override
 	public void modificarStock(List<ArticuloDto> dtos) throws RemoteException {
-		// TODO Auto-generated method stub
+		for (ArticuloDto articuloDto : dtos) {
+			Articulo articulo = entityManager.find(Articulo.class, articuloDto.getIdArticulo());
+			articulo.setStock(articuloDto.getStock());
+			entityManager.merge(articulo);
+		}
 
 	}
 
 	@Override
 	public List<ArticuloDto> listarArticulos() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.createQuery("Select a from Articulo a").getResultList();
 	}
 
-	private void notificarCreacion() {
+	private void notificarCreacion(ArticuloDto articulo) {
 
 	}
 

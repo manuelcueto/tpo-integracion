@@ -15,4 +15,14 @@ public class ArticuloConverter {
 		return result;
 	}
 
+	public static ArticuloDto toDto(Articulo articulo) {
+		ArticuloDto dto = new ArticuloDto();
+		dto.setDescripcion(articulo.getDescripcion());
+		dto.setIdArticulo(articulo.getIdArticulo());
+		dto.setNombre(articulo.getNombre());
+		dto.setPrecio(articulo.getPrecio());
+		dto.setStock(articulo.getStock());
+		return dto;
+	}
+
 }
