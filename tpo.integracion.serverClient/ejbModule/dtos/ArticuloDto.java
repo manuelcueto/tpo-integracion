@@ -1,23 +1,15 @@
 package dtos;
 
 public class ArticuloDto {
-String nombre;
-	Long codigo;
-	String descripcion;
-	String marca;
-	float precio;
-	String origen;
-	Long stock;
+	private String nombre;
+	private Long codigo;
+	private String descripcion;
+	private String marca;
+	private float precio;
+	private String origen;
+	private Long stock;
 	
-	public ArticuloDto(String nombre, Long codigo, String descripcion, String marca, float precio, String origen, Long stock) {
-		super();
-		this.nombre = nombre;
-		this.codigo = codigo;
-		this.descripcion = descripcion;
-		this.marca = marca;
-		this.precio = precio;
-		this.origen = origen;
-		this.stock = stock;
+	public ArticuloDto() {
 	}
 	
 	public String getJsonString () {
