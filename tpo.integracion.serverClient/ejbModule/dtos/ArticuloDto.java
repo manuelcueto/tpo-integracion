@@ -1,11 +1,12 @@
 package dtos;
 
 public class ArticuloDto {
+
 	private String nombre;
-	private Long codigo;
+	private Long idArticulo;
 	private String descripcion;
 	private String marca;
-	private float precio;
+	private Float precio;
 	private String origen;
 	private Long stock;
 	
@@ -14,7 +15,7 @@ public class ArticuloDto {
 	
 	public String getJsonString () {
 		JSONObject personObject = (JSONObject) Json.createObjectBuilder()
-		.add("codigo", this.getCodigo())
+		.add("idArticulo", this.getIdArticulo())
 		.add("descripcion", this.getDescripcion())
 		.add("marca", this.getMarca())
 		.add("precio", this.getPrecio())
@@ -39,11 +40,11 @@ public class ArticuloDto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Long getCodigo() {
-		return codigo;
+	public Long getIdArticulo() {
+		return idArticulo;
 	}
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setIdArticulo(Long idArticulo) {
+		this.idArticulo = idArticulo;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -57,10 +58,10 @@ public class ArticuloDto {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-	public float getPrecio() {
+	public Float getPrecio() {
 		return precio;
 	}
-	public void setPrecio(float precio) {
+	public void setPrecio(Float precio) {
 		this.precio = precio;
 	}
 	public String getOrigen() {
