@@ -18,6 +18,48 @@ public class SolicitudArticulo {
 	private Long idSolicitud;
 	@OneToOne
 	private Articulo articulo;
+	private Long idDespacho;
 	private Long stockSolicitado;
 	private Estado estado;
+
+	public Long getIdSolicitud() {
+		return idSolicitud;
+	}
+
+	public void setIdSolicitud(Long idSolicitud) {
+		this.idSolicitud = idSolicitud;
+	}
+
+	public Articulo getArticulo() {
+		return articulo;
+	}
+
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
+	}
+
+	public Long getStockSolicitado() {
+		return stockSolicitado;
+	}
+
+	public void setStockSolicitado(Long stockSolicitado) {
+		this.stockSolicitado = stockSolicitado;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public Long getIdDespacho() {
+		return idDespacho;
+	}
+
+	public void setIdDespacho(Long idDespacho) {
+		this.idDespacho = idDespacho;
+	}
+
 }

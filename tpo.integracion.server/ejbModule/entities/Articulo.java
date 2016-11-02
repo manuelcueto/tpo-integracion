@@ -1,5 +1,10 @@
 package entities;
 
+import java.io.StringReader;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -56,6 +61,22 @@ public class Articulo {
 
 	public void setStock(Long stock) {
 		this.stock = stock;
+	}
+
+	public static Articulo fromJson(String json) {
+		JsonReader reader = Json.createReader(new StringReader(json));
+		JsonObject jsonObject = reader.readObject();
+		Articulo articulo = new Articulo();
+		articulo.setIdArticulo(new Long(jsonObject.getInt("idArticulo")));
+		articulo.setDescripcion(jsonObject.getString("descripcion"));
+		articulo.setNombre(jsonObject.getString("nombre"));
+		articulo.setPrecio(new Float(jsonObject.getInt("precio")));
+		articulo.setStock(new Long(jsonObject.getInt("stock")));
+		return articulo;
+	}
+
+	public void agregarStock(Long stock) {
+		this.stock += stock;
 	}
 
 }

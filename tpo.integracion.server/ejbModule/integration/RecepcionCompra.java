@@ -5,39 +5,43 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
+import javax.jms.TextMessage;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
+import entities.Articulo;
+import entities.Compra;
 import entities.Pedido;
 
-/**
- * Message-Driven Bean implementation class for: RecepcionCompra
- */
 @MessageDriven(activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic") })
 public class RecepcionCompra implements MessageListener {
 
-	/**
-	 * Default constructor.
-	 */
-	public RecepcionCompra() {
-		// TODO Auto-generated constructor stub
-	}
+	@PersistenceContext
+	private EntityManager entityManager;
 
-	/**
-	 * @see MessageListener#onMessage(Message)
-	 */
 	public void onMessage(Message message) {
-		ObjectMessage receivedMessage = (ObjectMessage) message;
+		TextMessage receivedMessage = (TextMessage) message;
 		try {
-			Pedido pedido = receivedMessage.getBody(Pedido.class);
-			// llamar al PersistenceManager(debería estar en un session
-			// bean(posiblemente singleton)) y actualizar stock de los articulos
-			// dentro del stockX
+
+			this.processMessage(receivedMessage.getText());
+			// actualizar Stock de los articulos
+
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	private void processMessage(String text) {
+		Compra compra = Compra.fromJson(text);
+		for (Pedido pedido : compra.getPedidos()) {
+			Articulo art = this.entityManager.find(Articulo.class, pedido.getArticulo().getIdArticulo());
+			art.agregarStock(pedido.getStock());
+			this.entityManager.persist(art);
+		}
+		this.entityManager.persist(compra);
 	}
 
 }

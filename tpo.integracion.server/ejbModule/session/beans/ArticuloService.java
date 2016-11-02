@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.JMSException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -25,6 +27,9 @@ public class ArticuloService implements ArticuloServiceRemote {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	@Inject
+	private MessageProducer producer;
 
 	public ArticuloService() {
 		// TODO Auto-generated constructor stub
@@ -56,7 +61,11 @@ public class ArticuloService implements ArticuloServiceRemote {
 	}
 
 	private void notificarCreacion(ArticuloDto articulo) {
-
+		try {
+			System.out.println(this.producer.createTextMessage(articulo));
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
