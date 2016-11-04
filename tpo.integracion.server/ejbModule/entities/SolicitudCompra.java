@@ -18,7 +18,17 @@ public class SolicitudCompra {
 	private Long idSolicitud;
 	@OneToMany
 	private List<Pedido> pedidos;
-
+	
+	private EstadoSolicitudCompra estado;
+	
+	public Estado getEstado(){
+		return estado;	
+	}
+	
+	public void setEstado(EstadoSolicitudCompra estado){
+		this.estado = estado;	
+	}
+	
 	public Long getIdSolicitud() {
 		return idSolicitud;
 	}
